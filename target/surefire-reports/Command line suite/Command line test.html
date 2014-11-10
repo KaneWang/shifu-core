@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>TestNG:  Command line test</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Command line test</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>17/0/0</td>
+</tr><tr>
+<td>Started on:</td><td>Mon Nov 10 08:56:50 PST 2014</td>
+</tr>
+<tr><td>Total time:</td><td>0 seconds (105 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='ml.shifu.core.di.service.DataDictionaryServiceTest.test()'><b>test</b><br>Test class: ml.shifu.core.di.service.DataDictionaryServiceTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.service.DataDictionaryServiceTest@39385660</td></tr>
+<tr>
+<td title='ml.shifu.core.di.builtin.DefaultUnivariateStatsCalculatorTest.test()'><b>test</b><br>Test class: ml.shifu.core.di.builtin.DefaultUnivariateStatsCalculatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.builtin.DefaultUnivariateStatsCalculatorTest@56d73c7a</td></tr>
+<tr>
+<td title='ml.shifu.core.util.KSIVCalculatorTest.test()'><b>test</b><br>Test class: ml.shifu.core.util.KSIVCalculatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.KSIVCalculatorTest@7786df0f</td></tr>
+<tr>
+<td title='ml.shifu.core.util.QuickKFindTest.test()'><b>test</b><br>Test class: ml.shifu.core.util.QuickKFindTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.QuickKFindTest@21aed5f9</td></tr>
+<tr>
+<td title='ml.shifu.core.di.builtin.TripletPMMLDataDictionaryCreatorTest.test()'><b>test</b><br>Test class: ml.shifu.core.di.builtin.TripletPMMLDataDictionaryCreatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.builtin.TripletPMMLDataDictionaryCreatorTest@7b36a43c</td></tr>
+<tr>
+<td title='ml.shifu.core.di.service.UnivariateCalcStatsServiceTest.test()'><b>test</b><br>Test class: ml.shifu.core.di.service.UnivariateCalcStatsServiceTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.service.UnivariateCalcStatsServiceTest@33d6f122</td></tr>
+<tr>
+<td title='ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest.testEqualPositiveNumericalBinning()'><b>testEqualPositiveNumericalBinning</b><br>Test class: ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest@1f25fefa</td></tr>
+<tr>
+<td title='ml.shifu.core.util.JexlTest.testJavaDouble()'><b>testJavaDouble</b><br>Test class: ml.shifu.core.util.JexlTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.JexlTest@1e79ed7f</td></tr>
+<tr>
+<td title='ml.shifu.core.util.JexlTest.testJavaExpressionNum()'><b>testJavaExpressionNum</b><br>Test class: ml.shifu.core.util.JexlTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.JexlTest@1e79ed7f</td></tr>
+<tr>
+<td title='ml.shifu.core.util.JexlTest.testJavaExpressionString()'><b>testJavaExpressionString</b><br>Test class: ml.shifu.core.util.JexlTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.JexlTest@1e79ed7f</td></tr>
+<tr>
+<td title='ml.shifu.core.util.JexlTest.testJavaNull()'><b>testJavaNull</b><br>Test class: ml.shifu.core.util.JexlTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.JexlTest@1e79ed7f</td></tr>
+<tr>
+<td title='ml.shifu.core.util.EnvironmentTest.testLoadShifuConfig()'><b>testLoadShifuConfig</b><br>Test class: ml.shifu.core.util.EnvironmentTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.EnvironmentTest@2ce1899b</td></tr>
+<tr>
+<td title='ml.shifu.core.util.QuickSortTest.testQuickSortComparable()'><b>testQuickSortComparable</b><br>Test class: ml.shifu.core.util.QuickSortTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.QuickSortTest@736921fd</td></tr>
+<tr>
+<td title='ml.shifu.core.util.QuickSortTest.testQuickSortComparator()'><b>testQuickSortComparator</b><br>Test class: ml.shifu.core.util.QuickSortTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.util.QuickSortTest@736921fd</td></tr>
+<tr>
+<td title='ml.shifu.core.di.spi.ColumnRawStatsCalculatorTest.testRawValueObjectScreener()'><b>testRawValueObjectScreener</b><br>Test class: ml.shifu.core.di.spi.ColumnRawStatsCalculatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.spi.ColumnRawStatsCalculatorTest@647109c4</td></tr>
+<tr>
+<td title='ml.shifu.core.di.builtin.DefaultStatsProcessorTest.testSetParams()'><b>testSetParams</b><br>Test class: ml.shifu.core.di.builtin.DefaultStatsProcessorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.builtin.DefaultStatsProcessorTest@ac44b88</td></tr>
+<tr>
+<td title='ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest.testTotalPercentileNumericalBinning()'><b>testTotalPercentileNumericalBinning</b><br>Test class: ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest</td>
+<td></td>
+<td>0</td>
+<td>ml.shifu.core.di.spi.ColumnNumBinningCalculatorTest@1f25fefa</td></tr>
+</table><p>
+</body>
+</html>
