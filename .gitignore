@@ -1,1 +1,11 @@
+tmp
+generated
+.idea
+*.iml
 target
+.classpath
+.project
+.settings
+test-output
+*~
+.sonar
