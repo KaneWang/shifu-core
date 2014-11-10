@@ -32,7 +32,11 @@ public class SimpleModule extends AbstractModule {
     private String defaultPackage= "ml.shifu.core.di.spi";
     public SimpleModule() {
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 45e555119a70ee4a5b7f871d73cb4432f8bb3d06
     public SimpleModule(String packageName) {
         this.defaultPackage= packageName;
     }
