@@ -28,18 +28,8 @@
         <fileSet>
             <directory>${project.basedir}/src/main/resources/conf</directory>
             <outputDirectory>/conf</outputDirectory>
-            <excludes>
-                <exclude>log4j.*</exclude>
-            </excludes>
         </fileSet>
 
-        <fileSet>
-            <directory>${project.basedir}/src/main/resources/conf</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>log4j.*</include>
-            </includes>
-        </fileSet>
 
         <fileSet>
             <directory>${project.basedir}/src/main/resources/plugin</directory>

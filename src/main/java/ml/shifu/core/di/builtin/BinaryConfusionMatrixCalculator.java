@@ -9,7 +9,6 @@ import java.util.List;
 public class BinaryConfusionMatrixCalculator {
 
 
-
     public List<BinaryConfusionMatrix> calculate(List<ClassificationResult> classificationResults, List<String> posTags, List<String> negTags) {
 
         Double posScaleFactor = 1.0;

@@ -25,6 +25,7 @@ public class CategoricalValueObject {
     private Boolean isPositive;
     private String value;
     private Double weight;
+
     public CategoricalValueObject() {
         this.weight = 1.0;
     }

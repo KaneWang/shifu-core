@@ -28,6 +28,7 @@ public class BinningObject {
     private String cData;
     private Double score;
     private String tag;
+
     public BinningObject(DataType type) {
         this.type = type;
     }

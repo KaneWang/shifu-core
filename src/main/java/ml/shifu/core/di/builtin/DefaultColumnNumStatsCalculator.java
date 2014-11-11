@@ -31,8 +31,6 @@ public class DefaultColumnNumStatsCalculator implements ColumnNumStatsCalculator
     private static Logger log = LoggerFactory.getLogger(DefaultColumnNumStatsCalculator.class);
 
 
-
-
     public ColumnNumStatsResult calculate(List<NumericalValueObject> nvoList) {
 
         Double sum = 0.0;

@@ -33,12 +33,17 @@ public class CreatePMMLElementRequestProcessor implements RequestProcessor {
 
         String pathPMML = params.get("pathPMML", "./model.xml").toString();
 
+        log.info("PMML Path: " + pathPMML);
         PMML pmml;
 
         if ((new File(pathPMML)).exists()) {
+            log.info("    File already exists. Loading ...");
             pmml = PMMLUtils.loadPMML(pathPMML);
+            log.info("PMML Loaded!");
         } else {
+            log.info("    Creating new PMML ...");
             pmml = (new ShifuPMMLCreator()).create(params);
+            log.info("PMML Created!");
         }
 
 
@@ -71,33 +76,38 @@ public class CreatePMMLElementRequestProcessor implements RequestProcessor {
         Injector injector = Guice.createInjector(module);
 
         if (module.has("PMMLDataDictionaryCreator")) {
+            log.info("Creating <DataDictionary/> ...");
             PMMLDataDictionaryService service = injector.getInstance(PMMLDataDictionaryService.class);
             DataDictionary dataDictionary = service.getDataDictionary(dataDictionaryCreatorBinding.getParams());
             pmml.setDataDictionary(dataDictionary);
         }
 
         if (module.has("PMMLModelElementCreator")) {
+            log.info("Creating <ModelElement/> ...");
             PMMLModelElementService service = injector.getInstance(PMMLModelElementService.class);
             Model model = service.getModelElement(modelElementCreatorBinding.getParams());
-            for(Model m : pmml.getModels()) {
-                if(m.getModelName().equalsIgnoreCase((String)modelElementCreatorBinding.getParams().get("modelName")))
-                    throw new RuntimeException("ModelName already exists: " + model.getModelName() );
+            for (Model m : pmml.getModels()) {
+                if (m.getModelName().equalsIgnoreCase((String) modelElementCreatorBinding.getParams().get("modelName")))
+                    throw new RuntimeException("    ModelName already exists: " + model.getModelName() + "; rename the model or remove the existing <ModelElement/>");
             }
             pmml.withModels(model);
         }
 
         if (module.has("PMMLTargetsCreator")) {
+            log.info("Creating <Targets/> ...");
             PMMLTargetsService service = injector.getInstance(PMMLTargetsService.class);
             Targets targets = service.createTargetsElement(pmml, targetsCreatorBinding.getParams());
         }
 
         if (module.has("PMMLMiningSchemaCreator")) {
+            log.info("Creating <MiningSchema/> ...");
             PMMLMiningSchemaService service = injector.getInstance(PMMLMiningSchemaService.class);
             service.createMiningSchema(pmml, miningSchemaBinding != null ? miningSchemaBinding.getParams() : null);
         }
 
 
         if (module.has("PMMLLocalTransformationsCreator")) {
+            log.info("Creating <LocalTransformations/> ...");
             PMMLLocalTransformationsService service = injector.getInstance(PMMLLocalTransformationsService.class);
 
             service.createLocalTransformations(pmml, localTransformationsBinding != null ? localTransformationsBinding.getParams() : null);

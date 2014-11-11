@@ -41,10 +41,10 @@ public class SimpleUnivariateStatsCalculator implements UnivariateStatsCalculato
     @Override
     public UnivariateStats calculateRVO(DataField field, List<?> values, Params params) {
         List<Object> data = new ArrayList<Object>();
-        for(Object v : values) {
-            data.add(((RawValueObject)v).getValue());
+        for (Object v : values) {
+            data.add(((RawValueObject) v).getValue());
         }
-        return calculate(field,data,params);
+        return calculate(field, data, params);
     }
 
 

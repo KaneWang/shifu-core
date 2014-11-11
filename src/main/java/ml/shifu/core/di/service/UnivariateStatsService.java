@@ -25,11 +25,11 @@ public class UnivariateStatsService {
 
 
         //if(values.get(0) instanceof NumericalValueObject )
-            return univariateStatsCalculator.calculate(dataField, values, params);
+        return univariateStatsCalculator.calculate(dataField, values, params);
         //else if(values.get(0) instanceof RawValueObject) {
         //    return univariateStatsCalculator.calculateRVO(dataField, values, params);
-       // }
-       // return null;
+        // }
+        // return null;
 
     }
 

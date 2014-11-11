@@ -13,6 +13,7 @@ import org.dmg.pmml.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +61,10 @@ public class LocalModeTransformRequestProcessor implements RequestProcessor {
         //AllInclusiveTransformationExecutor executor = new AllInclusiveTransformationExecutor();
 
         try {
-            writer = new PrintWriter(params.get("pathOutputData").toString(), "UTF-8");
+            String pathOutput = params.get("pathOutputData").toString();
+            (new File(pathOutput.substring(0, pathOutput.lastIndexOf(File.separator) + 1))).mkdirs();
+
+            writer = new PrintWriter(pathOutput, "UTF-8");
             headerWriter = new PrintWriter(pathOutputActiveHeader);
 
             List<String> header = new ArrayList<String>();

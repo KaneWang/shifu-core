@@ -20,10 +20,12 @@ public class LocalCalcStatsRequestProcessor implements RequestProcessor {
     private static Logger log = LoggerFactory.getLogger(LocalCalcStatsRequestProcessor.class);
 
     public void exec(Request req) throws Exception {
+        log.info("RequestProcessor: " + LocalCalcStatsRequestProcessor.class);
+
         SimpleModule module = new SimpleModule();
 
-        Binding dataDictionaryCreatorBinding = RequestUtils.getUniqueBinding(req, "UnivariateStatsCalculator");
-        module.set(dataDictionaryCreatorBinding);
+        Binding univariateStatsCalculatorBinding = RequestUtils.getUniqueBinding(req, "UnivariateStatsCalculator");
+        module.set(univariateStatsCalculatorBinding);
 
 
         Injector injector = Guice.createInjector(module);
@@ -34,7 +36,7 @@ public class LocalCalcStatsRequestProcessor implements RequestProcessor {
 
 
         PMML pmml = PMMLUtils.loadPMML(pathPMML);
-        Params bindingParams = dataDictionaryCreatorBinding.getParams();
+        Params bindingParams = univariateStatsCalculatorBinding.getParams();
 
         SingleThreadFileLoader loader = new CSVWithHeaderLocalSingleThreadFileLoader();
 
@@ -54,7 +56,7 @@ public class LocalCalcStatsRequestProcessor implements RequestProcessor {
 
 
         bindingParams.put("tags", columns.get(targetFieldNum));
-        
+
         for (int i = 0; i < size; i++) {
 
             DataField field = dict.getDataFields().get(i);
