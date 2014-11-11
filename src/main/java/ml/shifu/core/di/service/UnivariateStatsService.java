@@ -24,12 +24,12 @@ public class UnivariateStatsService {
     public UnivariateStats getUnivariateStats(DataField dataField, List<?> values, Params params) {
 
 
-        if(values.get(0) instanceof NumericalValueObject )
+        //if(values.get(0) instanceof NumericalValueObject )
             return univariateStatsCalculator.calculate(dataField, values, params);
-        else if(values.get(0) instanceof RawValueObject) {
-            return univariateStatsCalculator.calculateRVO(dataField, values, params);
-        }
-        return null;
+        //else if(values.get(0) instanceof RawValueObject) {
+        //    return univariateStatsCalculator.calculateRVO(dataField, values, params);
+       // }
+       // return null;
 
     }
 

@@ -4,6 +4,8 @@ import ml.shifu.core.util.JSONUtils;
 
 import java.io.File;
 
+import org.testng.annotations.Test;
+
 public class RequestDispatcherTest {
 
 
