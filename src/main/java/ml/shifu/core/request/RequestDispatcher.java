@@ -20,10 +20,17 @@ public class RequestDispatcher {
         SimpleModule module = new SimpleModule();
         module.set(req);
 
+        log.info("    Creating injector ...");
         Injector injector = Guice.createInjector(module);
 
+        log.info("    Creating service ...");
         RequestProcessService service = injector.getInstance(RequestProcessService.class);
+
+        log.info("    Executing service ...");
         service.exec(req);
+
+        log.info("Request Processed: " + req.getName());
+
 
     }
 }
