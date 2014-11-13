@@ -87,4 +87,10 @@ public class JSONUtils {
         getObjectMapperInstance().writerWithDefaultPrettyPrinter().writeValue(src, value);
     }
 
+    public static <T> T reparse(Object value, Class<T> valueType) throws IOException{
+        ObjectMapper mapper = getObjectMapperInstance();
+        return mapper.readValue(mapper.writeValueAsString(value), valueType);
+
+    }
+
 }

@@ -91,4 +91,16 @@ public class RequestDispatcherTest {
     }           */
 
 
+    @Test
+    public void test101() throws Exception {
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc2/requests/1_create.json"), Request.class);
+        RequestDispatcher.dispatch(req);
+    }
+
+    @Test
+    public void test102() throws Exception {
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc2/requests/2_stats.json"), Request.class);
+        RequestDispatcher.dispatch(req);
+    }
+
 }

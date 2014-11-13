@@ -23,6 +23,7 @@ import ml.shifu.core.request.Request;
 import ml.shifu.core.util.CommonUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +33,10 @@ public class SimpleModule extends AbstractModule {
     private String defaultPackage = "ml.shifu.core.di.spi";
 
     public SimpleModule() {
+    }
+
+    public SimpleModule(List<Binding> bindings) {
+        this.setBindings(bindings);
     }
 
     public SimpleModule(String packageName) {
@@ -44,6 +49,12 @@ public class SimpleModule extends AbstractModule {
 
     public void setBindings(Map<String, String> bindings) {
         this.bindings = bindings;
+    }
+
+    public void setBindings(List<Binding> bindings) {
+        for (Binding binding : bindings) {
+            this.set(binding.getSpi(), binding.getImpl());
+        }
     }
 
     public void set(String spi, String impl) {

@@ -2,6 +2,7 @@ package ml.shifu.core.request;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ml.shifu.core.util.Params;
 
 import java.util.List;
 
@@ -46,4 +47,21 @@ public class Request {
     }
 
 
+    public Params getParamsBySpi(String spi) {
+        for (Binding binding : bindings) {
+            if (binding.getSpi().equals(spi)) {
+                return binding.getParams();
+            }
+        }
+        throw new RuntimeException("No such SPI: " + spi);
+    }
+
+    public Boolean existsSpi(String spi) {
+        for (Binding binding : bindings) {
+            if (binding.getSpi().equals(spi)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
