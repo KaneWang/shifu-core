@@ -2,7 +2,7 @@ package ml.shifu.core.di.spi;
 
 import ml.shifu.core.container.ColumnBinningResult;
 import ml.shifu.core.container.NumericalValueObject;
-import ml.shifu.core.di.builtin.EqualPositiveColumnNumBinningCalculator;
+import ml.shifu.core.di.builtin.EqualPositiveBinningCalculator;
 import ml.shifu.core.di.builtin.TotalPercentileColumnNumBinningCalculator;
 import org.testng.annotations.Test;
 
@@ -13,20 +13,7 @@ import java.util.List;
 public class ColumnNumBinningCalculatorTest {
 
 
-    @Test
-    public void testEqualPositiveNumericalBinning() {
 
-        List<NumericalValueObject> voList = generateData();
-
-        ColumnNumBinningCalculator binning = new EqualPositiveColumnNumBinningCalculator();
-        ColumnBinningResult columnBinningResult = binning.calculate(voList, 10);
-
-
-        System.out.println(columnBinningResult.getBinBoundary());
-        System.out.println(columnBinningResult.getBinCountPos());
-        System.out.println(columnBinningResult.getBinCountNeg());
-        //Assert.assertNull(columnBinningResult);
-    }
 
     @Test
     public void testTotalPercentileNumericalBinning() {

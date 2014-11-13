@@ -4,6 +4,7 @@ import ml.shifu.core.container.RawValueObject;
 import ml.shifu.core.container.fieldMeta.Counts;
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldStats;
+import ml.shifu.core.util.Params;
 
 
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 public class DefaultCountsCalculator {
 
-    public static void calculate(Field field, List<?> values) {
+    public static void calculate(Field field, List<?> values, Params params) {
         FieldStats fieldStats = field.getFieldStats();
         Counts counts = new Counts();
 

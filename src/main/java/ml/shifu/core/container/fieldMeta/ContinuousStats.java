@@ -16,7 +16,7 @@ public class ContinuousStats {
     private Double totalSquaresSum;
     private Double interQuartileRange;
     private List<Double> binBoundaries;
-    private List<Double> binCounts;
+    private List<Integer> binCounts;
     private List<Double> binWeightedCounts;
     private List<Quantile> quantiles;
     private Map<String, ContinuousStats> statsByClass;
@@ -93,11 +93,11 @@ public class ContinuousStats {
         this.binBoundaries = binBoundaries;
     }
 
-    public List<Double> getBinCounts() {
+    public List<Integer> getBinCounts() {
         return binCounts;
     }
 
-    public void setBinCounts(List<Double> binCounts) {
+    public void setBinCounts(List<Integer> binCounts) {
         this.binCounts = binCounts;
     }
 

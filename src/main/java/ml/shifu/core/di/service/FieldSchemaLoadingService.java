@@ -31,7 +31,7 @@ public class FieldSchemaLoadingService {
         this.loader = loader;
     }
 
-    public FieldMeta exec(Params params) {
+    public FieldMeta exec(Params params) throws Exception {
         FieldMeta fieldMeta =  loader.load(params);
         return fieldMeta;
     }

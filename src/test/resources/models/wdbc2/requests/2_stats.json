@@ -3,9 +3,18 @@
   "description": "step 2, calculate stats",
   "processor": {
     "spi": "RequestProcessor",
-    "impl": "ml.shifu.core.di.builtin.processor.LocalStatsRequestProcessor",
+    "impl": "ml.shifu.core.di.builtin.processor.LocalBinomialStatsRequestProcessor",
     "params": {
-      "pathFieldMeta": "src/test/resources/models/wdbc2/generated/FieldMeta.json"
+      "pathFieldMeta": "src/test/resources/models/wdbc2/generated/FieldMeta.json",
+      "targetFieldName": "diagnosis",
+
+
+      "negTags": [
+        "B"
+      ],
+      "posTags": [
+        "M"
+      ]
     }
   },
   "bindings": [
@@ -20,16 +29,8 @@
       "spi": "StatsCalculator",
       "impl": "ml.shifu.core.di.builtin.statsCalculator.DefaultStatsCalculator",
       "params": {
+        "numBins": 10
 
-        "targetFieldName": "diagnosis",
-        "pathInputData": "src/test/resources/data/wdbc/wdbc.data",
-        "numBins": 10,
-        "negTags": [
-          "B"
-        ],
-        "posTags": [
-          "M"
-        ]
       }
     }
   ]

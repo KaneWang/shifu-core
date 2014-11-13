@@ -13,7 +13,8 @@ public class DefaultStatsCalculator implements StatsCalculator {
     public void calculate(Field field, List<?> values, Params params) {
         field.setFieldStats(new FieldStats());
 
-        DefaultCountsCalculator.calculate(field, values);
+        DefaultCountsCalculator.calculate(field, values, params);
+        DefaultContinuousStatsCalculator.calculate(field, values, params);
 
     }
 

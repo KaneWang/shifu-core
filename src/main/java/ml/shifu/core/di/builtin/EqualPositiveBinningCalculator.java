@@ -18,28 +18,27 @@ package ml.shifu.core.di.builtin;
 
 
 import ml.shifu.core.container.ColumnBinningResult;
+import ml.shifu.core.container.ContinuousValueObject;
 import ml.shifu.core.container.NumericalValueObject;
-import ml.shifu.core.di.spi.ColumnNumBinningCalculator;
-import ml.shifu.core.util.QuickSort;
+import ml.shifu.core.container.fieldMeta.ContinuousStats;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class EqualPositiveColumnNumBinningCalculator implements ColumnNumBinningCalculator {
+import java.util.*;
+
+public class EqualPositiveBinningCalculator  {
 
     private final static Double EPS = 1e-6;
 
-    public ColumnBinningResult calculate(List<NumericalValueObject> voList, int maxNumBins) {
+    public void calculate(ContinuousStats stats, List<ContinuousValueObject> voList, int maxNumBins) {
 
         ColumnBinningResult columnBinningResult = new ColumnBinningResult();
 
-        QuickSort.sort(voList, new NumericalValueObject.NumericalValueObjectComparator());
-
+        Collections.sort(voList, new ContinuousValueObject.ContinuousValueObjectComparator());
 
         int sumPositive = 0, voSize = voList.size();
 
-        for (NumericalValueObject vo : voList) {
-            sumPositive += vo.getIsPositive() ? 1 : 0;
+        for (ContinuousValueObject vo : voList) {
+            sumPositive += vo.getTag().equals("POS") ? 1 : 0;
         }
 
 
@@ -63,7 +62,7 @@ public class EqualPositiveColumnNumBinningCalculator implements ColumnNumBinning
         // add first bin (from negative infinite)
         binBoundary.add(Double.NEGATIVE_INFINITY);
 
-        NumericalValueObject vo;
+        ContinuousValueObject vo;
 
         double prevData = voList.get(0).getValue();
         // For each Variable
@@ -100,7 +99,7 @@ public class EqualPositiveColumnNumBinningCalculator implements ColumnNumBinning
             }
 
             // increment the counter of the current bin
-            if (vo.getIsPositive()) {
+            if (vo.getTag().equals("POS")) {
                 countPos[currBin]++;
                 countWeightedPos[currBin] += vo.getWeight();
 
@@ -135,14 +134,23 @@ public class EqualPositiveColumnNumBinningCalculator implements ColumnNumBinning
         }
 
 
-        columnBinningResult.setBinBoundary(binBoundary);
-        columnBinningResult.setBinCountNeg(binCountNeg);
-        columnBinningResult.setBinCountPos(binCountPos);
-        columnBinningResult.setBinPosRate(binPosRate);
-        columnBinningResult.setBinWeightedNeg(binWeightedNeg);
-        columnBinningResult.setBinWeightedPos(binWeightedPos);
+        ContinuousStats posStats = new ContinuousStats();
+        posStats.setBinCounts(binCountPos);
+        posStats.setBinWeightedCounts(binWeightedPos);
 
-        return columnBinningResult;
+        ContinuousStats negStats = new ContinuousStats();
+        negStats.setBinCounts(binCountNeg);
+        negStats.setBinWeightedCounts(binWeightedNeg);
+
+        Map<String, ContinuousStats> statsByClass = new HashMap<String, ContinuousStats>();
+
+        statsByClass.put("POS", posStats);
+        statsByClass.put("NEG", negStats);
+        stats.setStatsByClass(statsByClass);
+        stats.setBinBoundaries(binBoundary);
+
+
+
     }
 
 }

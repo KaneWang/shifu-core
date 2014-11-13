@@ -20,6 +20,7 @@ import java.util.Comparator;
 /**
  * Numerical Value Object
  */
+@Deprecated
 public class NumericalValueObject {
 
 

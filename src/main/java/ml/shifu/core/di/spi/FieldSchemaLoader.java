@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface FieldSchemaLoader {
 
-    public FieldMeta load(Params params);
+    public FieldMeta load(Params params) throws Exception;
 
 }
