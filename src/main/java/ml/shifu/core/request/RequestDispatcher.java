@@ -15,7 +15,7 @@ public class RequestDispatcher {
 
     public static void dispatch(Request req) throws Exception {
 
-        log.info("Starting Processor ...");
+        log.info("Processing Request: " + req.getName());
 
         SimpleModule module = new SimpleModule();
         module.set(req);

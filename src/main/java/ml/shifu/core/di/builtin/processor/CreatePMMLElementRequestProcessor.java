@@ -33,6 +33,13 @@ public class CreatePMMLElementRequestProcessor implements RequestProcessor {
 
         String pathPMML = params.get("pathPMML", "./model.xml").toString();
 
+        if (params.containsKey("overrideExistingModel")) {
+            Boolean overrideExistingModel = Boolean.valueOf(params.get("overrideExistingModel").toString());
+            if (overrideExistingModel) {
+                new File(pathPMML).delete();
+            }
+        }
+
         log.info("PMML Path: " + pathPMML);
         PMML pmml;
 

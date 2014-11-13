@@ -4,10 +4,18 @@ import ml.shifu.core.util.JSONUtils;
 
 import java.io.File;
 
+import ml.shifu.core.util.ShifuCLI;
 import org.testng.annotations.Test;
 
 public class RequestDispatcherTest {
 
+    //@Test
+    public void test0() throws Exception {
+        //Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc/requests/all.json"), Request.class);
+        //RequestDispatcher.dispatch(req);
+
+        ShifuCLI.main(new String[]{"src/test/resources/models/wdbc/requests/all.json"});
+    }
 
     //@Test
     public void test1() throws Exception {
@@ -91,15 +99,15 @@ public class RequestDispatcherTest {
     }           */
 
 
-    @Test
+    //@Test
     public void test101() throws Exception {
-        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc2/requests/1_create.json"), Request.class);
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/1_create.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test102() throws Exception {
-        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc2/requests/2_stats.json"), Request.class);
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 

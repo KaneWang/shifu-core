@@ -27,6 +27,7 @@ public class LocalModeTransformRequestProcessor implements RequestProcessor {
     public void exec(Request req) throws Exception {
         Params params = req.getProcessor().getParams();
         String pathPMML = params.get("pathPMML", "model.xml").toString();
+
         String pathOutputActiveHeader = params.get("pathOutputActiveHeader").toString();
 
 

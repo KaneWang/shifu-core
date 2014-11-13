@@ -72,8 +72,10 @@ public class SimpleModule extends AbstractModule {
 
         this.set(req.getProcessor());
 
-        for (Binding binding : req.getBindings()) {
-            this.set(binding);
+        if (req.getBindings() != null) {
+            for (Binding binding : req.getBindings()) {
+                this.set(binding);
+            }
         }
     }
 
