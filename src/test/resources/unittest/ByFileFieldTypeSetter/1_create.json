@@ -19,21 +19,12 @@
     },
     {
       "spi": "FieldTypeSetter",
-      "impl": "ml.shifu.core.di.builtin.fieldTypeSetter.NamePatternFieldTypeSetter",
+      "impl": "ml.shifu.core.di.builtin.fieldTypeSetter.ByFileFieldTypeSetter",
       "params": {
-        "patterns": {
-          "id": {
-            "opType": "ordinal",
-            "dataType": "number"
-          },
-          "diagnosis": {
-            "opType": "categorical",
-            "dataType": "string"
-          },
-          "$default": {
-            "opType": "continuous",
-            "dataType": "number"
-          }
+        "fileMap": {
+          "CONTINUOUS": "$default",
+          "CATEGORICAL": "src/test/resources/unittest/ByFileFieldTypeSetter/categorical.txt",
+          "ORDINAL": "src/test/resources/unittest/ByFileFieldTypeSetter/ordinal.txt"
         }
       }
     }

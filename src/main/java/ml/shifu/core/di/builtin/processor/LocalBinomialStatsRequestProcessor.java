@@ -111,9 +111,6 @@ public class LocalBinomialStatsRequestProcessor implements RequestProcessor {
             } else if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CATEGORICAL)) {
 
             }
-
-
-
         }
 
         JSONUtils.writeValue(new File(pathFieldMeta), fieldMeta);
