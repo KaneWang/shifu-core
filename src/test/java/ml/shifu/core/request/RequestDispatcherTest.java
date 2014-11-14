@@ -110,5 +110,10 @@ public class RequestDispatcherTest {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
+    @Test
+    public void test103() throws Exception {
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/3_varselect.json"), Request.class);
+        RequestDispatcher.dispatch(req);
+    }
 
 }
