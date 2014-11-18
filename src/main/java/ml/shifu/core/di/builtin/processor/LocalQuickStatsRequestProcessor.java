@@ -126,6 +126,10 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
 
         for (int i = 0; i < size; i++) {
@@ -143,7 +147,7 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
                 ContinuousStats stats = new ContinuousStats();
                 stats.setMin(min[i]);
                 stats.setMax(max[i]);
-                stats.setMean(sum[i] / size);
+                stats.setMean(sum[i] / totalFreq[i]);
                 stats.setTotalValuesSum(sum[i]);
                 field.getFieldStats().setContinuousStats(stats);
             }

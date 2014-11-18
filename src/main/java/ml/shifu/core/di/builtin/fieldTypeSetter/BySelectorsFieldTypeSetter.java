@@ -38,7 +38,7 @@ public class BySelectorsFieldTypeSetter implements FieldTypeSetter {
             field.getFieldBasics().setOpType(FieldBasics.OpType.CONTINUOUS);
         }
 
-        for (Field field : fieldSelector.select(fieldMeta,  ordinalSelectors)) {
+        for (Field field : fieldSelector        .select(fieldMeta,  ordinalSelectors)) {
             field.getFieldBasics().setOpType(FieldBasics.OpType.ORDINAL);
         }
 /*
