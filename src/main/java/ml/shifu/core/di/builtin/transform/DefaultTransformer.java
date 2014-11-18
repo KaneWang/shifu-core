@@ -11,20 +11,36 @@ import java.util.List;
 public class DefaultTransformer  {
 
     public List<Double> transform(FieldMeta fieldMeta, List<Object> raw) {
-
+/*
         List<Field> fields = fieldMeta.getFields();
 
         List<Double> normalized = new ArrayList<Double>();
         ZScoreNormalizer normalizer= new ZScoreNormalizer();
+
         for (Field field : fields) {
+
+            if (field.getFieldControl().containsKey("target")) {
+                Boolean isTarget = (Boolean) field.getFieldControl().get("target");
+                if (isTarget) {
+                    // test only
+                    normalized.add(raw.get(field.getFieldBasics().getNum()) == "M" ? 1.0 : 0.0);
+                    break;
+                }
+            }
+        }
+
+
+
+        for (Field field : fields) {
+
             if (field.getFieldControl() != null && field.getFieldControl().containsKey("selected")) {
                 if (field.getFieldControl().get("selected").toString().equals("true")) {
                     normalized.add(normalizer.normalize(field, raw.get(field.getFieldBasics().getNum())));
                 }
             }
         }
-
-        return normalized;
+*/
+        return null;//normalized;
     }
 
 }

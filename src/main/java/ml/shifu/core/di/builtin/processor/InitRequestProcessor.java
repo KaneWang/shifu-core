@@ -2,7 +2,10 @@ package ml.shifu.core.di.builtin.processor;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import ml.shifu.core.container.FieldControl;
+import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldMeta;
+import ml.shifu.core.container.fieldMeta.FieldStats;
 import ml.shifu.core.di.module.SimpleModule;
 import ml.shifu.core.di.service.FieldSchemaLoadingService;
 import ml.shifu.core.di.service.FieldTypeSettingService;
@@ -14,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InitRequestProcessor implements RequestProcessor {
 
@@ -37,6 +42,10 @@ public class InitRequestProcessor implements RequestProcessor {
             fieldTypeSettingService.exec(fieldMeta, req.getParamsBySpi("FieldTypeSetter"));
         }
 
+        for (Field field : fieldMeta.getFields()) {
+            field.setFieldStats(new FieldStats());
+            field.setFieldControl(new FieldControl());
+        }
 
         JSONUtils.writeValue(new File(pathOutput), fieldMeta);
     }

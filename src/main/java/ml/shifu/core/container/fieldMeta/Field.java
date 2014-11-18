@@ -1,5 +1,7 @@
 package ml.shifu.core.container.fieldMeta;
 
+import ml.shifu.core.container.FieldControl;
+
 import java.util.Map;
 
 public class Field {
@@ -7,7 +9,7 @@ public class Field {
 
     private FieldBasics fieldBasics;
     private FieldStats fieldStats;
-    private Map<String, Object> fieldControl;
+    private FieldControl fieldControl;
 
 
 
@@ -27,11 +29,11 @@ public class Field {
         this.fieldStats = fieldStats;
     }
 
-    public Map<String, Object> getFieldControl() {
+    public FieldControl getFieldControl() {
         return fieldControl;
     }
 
-    public void setFieldControl(Map<String, Object> fieldControl) {
+    public void setFieldControl(FieldControl fieldControl) {
         this.fieldControl = fieldControl;
     }
 }

@@ -1,0 +1,136 @@
+package ml.shifu.core.di.builtin.processor;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Joiner;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import ml.shifu.core.container.fieldMeta.Field;
+import ml.shifu.core.container.fieldMeta.FieldMeta;
+import ml.shifu.core.di.builtin.transform.DefaultTransformer;
+import ml.shifu.core.di.builtin.transform.ZScoreNormalizer;
+import ml.shifu.core.di.module.SimpleModule;
+import ml.shifu.core.di.service.DataLoadingService;
+import ml.shifu.core.di.spi.RequestProcessor;
+import ml.shifu.core.request.Request;
+import ml.shifu.core.util.Params;
+import ml.shifu.core.util.TransformPlan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class LocalTransformExecRequestProcessor implements RequestProcessor {
+
+    private static Logger log = LoggerFactory.getLogger(FilterVariableSelectionRequestProcessor.class);
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    private ZScoreNormalizer zScoreNormalizer = new ZScoreNormalizer();
+
+    public void exec(Request req) throws Exception {
+        Params params = req.getProcessor().getParams();
+
+        String pathFieldMeta = params.get("pathFieldMeta").toString();
+        String pathOutput = params.get("pathOutput").toString();
+
+        FieldMeta fieldMeta = objectMapper.readValue(new File(pathFieldMeta), FieldMeta.class);
+        Injector injector = Guice.createInjector(new SimpleModule(req.getBindings()));
+
+        // Data Loading Service
+        DataLoadingService dataLoadingService = injector.getInstance(DataLoadingService.class);
+        List<List<Object>> rows = dataLoadingService.load(req.getParamsBySpi("DataLoader"));
+
+        DefaultTransformer transformer = new DefaultTransformer();
+
+
+        PrintWriter writer = null;
+        PrintWriter headerWriter = null;
+
+        // DefaultTransformationExecutor executor = new DefaultTransformationExecutor();
+        //AllInclusiveTransformationExecutor executor = new AllInclusiveTransformationExecutor();
+
+        String transformSelectedOnly = params.get("transformSelectedOnly").toString();
+
+
+        try {
+
+            (new File(pathOutput.substring(0, pathOutput.lastIndexOf(File.separator) + 1))).mkdirs();
+
+
+            //List<Object> result = new ArrayList<Object>();
+
+            writer = new PrintWriter(pathOutput, "UTF-8");
+
+            for (List<Object> row : rows) {
+
+                List<Double> result = transform(fieldMeta, row);
+                //log.info(Joiner.on(",").join(result));
+                writer.println(Joiner.on(",").join(result));
+
+            }
+
+
+        } catch (Exception e) {
+            log.error(e.toString());
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+            if (headerWriter != null) {
+                headerWriter.close();
+            }
+        }
+    }
+
+    private List<Double> transform(FieldMeta fieldMeta, List<Object> raw) {
+
+        List<Field> fields = fieldMeta.getFields();
+
+        List<Double> normalized = new ArrayList<Double>();
+        //ZScoreNormalizer normalizer = new ZScoreNormalizer();
+
+        for (Field field : fields) {
+
+            if (field.getFieldControl().getIsTarget() != null && field.getFieldControl().getIsTarget() == true) {
+
+                TransformPlan transformPlan = field.getFieldControl().getTransformPlan();
+
+                normalized.add(Double.valueOf(transform(field, raw.get(field.getFieldBasics().getNum())).toString()));
+                break;
+
+            }
+        }
+
+
+        for (Field field : fields) {
+
+            if (field.getFieldControl().getIsSelected() != null && field.getFieldControl().getIsSelected() == true) {
+
+                normalized.add((Double)transform(field, raw.get(field.getFieldBasics().getNum())));
+
+            }
+        }
+
+        return normalized;
+    }
+
+
+    private Object transform(Field field, Object raw) {
+        TransformPlan transformPlan = field.getFieldControl().getTransformPlan();
+        String method = transformPlan.getMethod();
+        if (method.equals("map")) {
+            Map<String, String> mapTo = (Map<String, String>) transformPlan.getParams().get("mapTo");
+            return mapTo.get(raw);
+        } else if (method.equalsIgnoreCase("ZScore")) {
+            return zScoreNormalizer.normalize(field, raw);
+        } else {
+            throw new RuntimeException("Method not supported: " + method);
+        }
+
+    }
+}

@@ -3,6 +3,7 @@ package ml.shifu.core.di.builtin.processor;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import ml.shifu.core.container.ContinuousValueObject;
+import ml.shifu.core.container.FieldControl;
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldBasics;
 import ml.shifu.core.container.fieldMeta.FieldMeta;
@@ -20,12 +21,14 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LocalBinomialStatsRequestProcessor implements RequestProcessor {
     private static Logger log = LoggerFactory.getLogger(LocalBinomialStatsRequestProcessor.class);
 
     public void exec(Request req) throws Exception {
 
+        log.info("Request Received: LocalBinomialStatsRequestProcessor");
         Injector injector = Guice.createInjector(new SimpleModule(req.getBindings()));
 
         // Data Loading Service
@@ -40,6 +43,7 @@ public class LocalBinomialStatsRequestProcessor implements RequestProcessor {
         FieldMeta fieldMeta = JSONUtils.readValue(new File(pathFieldMeta), FieldMeta.class);
 
         String targetFieldName = params.get("targetFieldName").toString();
+
 
 
 
@@ -58,6 +62,11 @@ public class LocalBinomialStatsRequestProcessor implements RequestProcessor {
         if (targetFieldNum == null) {
             throw new RuntimeException("!!! Cannot find target field: " + targetFieldName);
         }
+
+
+
+        FieldControl fieldControl = fieldMeta.getFields().get(targetFieldNum).getFieldControl();
+        fieldControl.setIsTarget(true);
 
         List<String> posTags = (List<String>)params.get("posTags");
         List<String> negTags = (List<String>)params.get("negTags");

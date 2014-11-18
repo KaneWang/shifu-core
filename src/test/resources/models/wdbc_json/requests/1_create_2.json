@@ -19,11 +19,22 @@
     },
     {
       "spi": "FieldTypeSetter",
-      "impl": "ml.shifu.core.di.builtin.fieldTypeSetter.BySelectorsFieldTypeSetter",
+      "impl": "ml.shifu.core.di.builtin.fieldTypeSetter.NamePatternFieldTypeSetter",
       "params": {
-        "CATEGORICAL": ["diagnosis"],
-        "ORDINAL": ["id"],
-        "CONTINUOUS": ["$default"]
+        "patterns": {
+          "id": {
+            "opType": "ordinal",
+            "dataType": "number"
+          },
+          "diagnosis": {
+            "opType": "categorical",
+            "dataType": "string"
+          },
+          "$default": {
+            "opType": "continuous",
+            "dataType": "number"
+          }
+        }
       }
     }
   ]

@@ -1,6 +1,7 @@
 package ml.shifu.core.di.builtin.processor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ml.shifu.core.container.FieldControl;
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldMeta;
 import ml.shifu.core.di.spi.RequestProcessor;
@@ -50,13 +51,13 @@ public class FilterVariableSelectionRequestProcessor implements RequestProcessor
 
             log.info("    Selected: " + candidateFields.get(i).getFieldBasics().getName());
             log.info("        Metric: " + metric + "=" + candidateFields.get(i).getFieldStats().getExtensions().get(metric));
-            Map<String, Object> fieldControl = candidateFields.get(i).getFieldControl();
+            FieldControl fieldControl = candidateFields.get(i).getFieldControl();
             if (fieldControl == null) {
                 log.info("        Creating FieldControl");
-                fieldControl = new HashMap<String, Object>();
+                //fieldControl = new HashMap<String, Object>();
                 candidateFields.get(i).setFieldControl(fieldControl);
             }
-            fieldControl.put("selected", true);
+            fieldControl.setIsSelected(true);
 
         }
 

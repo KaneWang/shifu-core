@@ -39,9 +39,9 @@ public class ZScoreNormalizer  {
 
     public Double normalize(Field field, Object raw) {
 
-        if (field.getFieldControl() != null && field.getFieldControl().containsKey("stdDevCutOff")) {
-            stdDevCutOff = Double.valueOf(field.getFieldControl().get("stdDevCutOff").toString());
-        }
+       // if (field.getFieldControl() != null && field.getFieldControl().containsKey("stdDevCutOff")) {
+         //   stdDevCutOff = Double.valueOf(field.getFieldControl().get("stdDevCutOff").toString());
+       // }
 
         //if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CATEGORICAL)) {
 
