@@ -64,17 +64,22 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
         Set<Integer> continuousSet = new HashSet<Integer>();
         Set<Integer> categoricalSet = new HashSet<Integer>();
 
+        List<Map<String, Double>> categoricalCounters = new ArrayList<Map<String, Double>>();
+
+
         for (int i = 0; i < size; i++) {
             Field field = fields.get(i);
+            categoricalCounters.add( new HashMap<String, Double>());
             if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CATEGORICAL)) {
                 categoricalSet.add(i);
+
             } else if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CONTINUOUS)) {
                 continuousSet.add(i);
+
             }
         }
 
 
-        DiscreteStats[] discreteStatsArray = new DiscreteStats[size];
 
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(new File(pathData))));
@@ -118,8 +123,9 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
                             min[i] = value;
                         }
                         sum[i] += value;
-                    } else if (categoricalSet.contains(i)) {
-                        //discreteStatsArray[i].getBinCounts();
+                    } else if (valid && categoricalSet.contains(i)) {
+                        incMapCnt(categoricalCounters.get(i), raw.toString());
+
                     }
                     i++;
                 }
@@ -150,11 +156,34 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
                 stats.setMean(sum[i] / totalFreq[i]);
                 stats.setTotalValuesSum(sum[i]);
                 field.getFieldStats().setContinuousStats(stats);
+            } else if (categoricalSet.contains(i)) {
+                DiscreteStats discreteStats = new DiscreteStats();
+                List<String> binCategories = new ArrayList<String>();
+                List<Double> binCounts = new ArrayList<Double>();
+                String modalString = null;
+                Double modalValue = Double.NEGATIVE_INFINITY;
+                for (Map.Entry<String, Double> entry : categoricalCounters.get(i).entrySet()) {
+                    binCategories.add(entry.getKey());
+                    binCounts.add(entry.getValue());
+                    if (modalValue < entry.getValue()) {
+                        modalString = entry.getKey();
+                        modalValue = entry.getValue();
+                    }
+                }
+                discreteStats.setBinCounts(binCounts);
+                discreteStats.setBinCategories(binCategories);
+                discreteStats.setModalValue(modalString);
+                field.getFieldStats().setDiscreteStats(discreteStats);
             }
         }
 
 
         JSONUtils.writeValue(new File(pathFieldMeta), fieldMeta);
 
+    }
+
+    private void incMapCnt(Map<String, Double> map, String key) {
+        double cnt = map.containsKey(key) ? map.get(key) : 0;
+        map.put(key, cnt + 1);
     }
 }
