@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
-import ml.shifu.core.container.fieldMeta.Field;
+
 import ml.shifu.core.container.fieldMeta.FieldMeta;
 import ml.shifu.core.di.builtin.transform.DefaultTransformer;
 import ml.shifu.core.di.builtin.transform.ZScoreNormalizer;
