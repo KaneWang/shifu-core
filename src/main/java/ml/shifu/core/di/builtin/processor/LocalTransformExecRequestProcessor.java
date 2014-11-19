@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldMeta;
 import ml.shifu.core.di.builtin.transform.DefaultTransformer;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class LocalTransformExecRequestProcessor implements RequestProcessor {
 
-    private static Logger log = LoggerFactory.getLogger(FilterVariableSelectionRequestProcessor.class);
+    private static Logger log = LoggerFactory.getLogger(LocalTransformExecRequestProcessor.class);
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,6 +35,8 @@ public class LocalTransformExecRequestProcessor implements RequestProcessor {
 
     public void exec(Request req) throws Exception {
         Params params = req.getProcessor().getParams();
+
+        DefaultTransformer defaultTransformer = new DefaultTransformer();
 
         String pathFieldMeta = params.get("pathFieldMeta").toString();
         String pathOutput = params.get("pathOutput").toString();
@@ -45,7 +48,7 @@ public class LocalTransformExecRequestProcessor implements RequestProcessor {
         DataLoadingService dataLoadingService = injector.getInstance(DataLoadingService.class);
         List<List<Object>> rows = dataLoadingService.load(req.getParamsBySpi("DataLoader"));
 
-        DefaultTransformer transformer = new DefaultTransformer();
+
 
 
         PrintWriter writer = null;
@@ -68,7 +71,7 @@ public class LocalTransformExecRequestProcessor implements RequestProcessor {
 
             for (List<Object> row : rows) {
 
-                List<Double> result = transform(fieldMeta, row);
+                List<Object> result = defaultTransformer.transform(fieldMeta.getFields(), row);
                 //log.info(Joiner.on(",").join(result));
                 writer.println(Joiner.on(",").join(result));
 
@@ -87,50 +90,5 @@ public class LocalTransformExecRequestProcessor implements RequestProcessor {
         }
     }
 
-    private List<Double> transform(FieldMeta fieldMeta, List<Object> raw) {
 
-        List<Field> fields = fieldMeta.getFields();
-
-        List<Double> normalized = new ArrayList<Double>();
-        //ZScoreNormalizer normalizer = new ZScoreNormalizer();
-
-        for (Field field : fields) {
-
-            if (field.getFieldControl().getIsTarget() != null && field.getFieldControl().getIsTarget() == true) {
-
-                TransformPlan transformPlan = field.getFieldControl().getTransformPlan();
-
-                normalized.add(Double.valueOf(transform(field, raw.get(field.getFieldBasics().getNum())).toString()));
-                break;
-
-            }
-        }
-
-
-        for (Field field : fields) {
-
-            if (field.getFieldControl().getIsSelected() != null && field.getFieldControl().getIsSelected() == true) {
-
-                normalized.add((Double)transform(field, raw.get(field.getFieldBasics().getNum())));
-
-            }
-        }
-
-        return normalized;
-    }
-
-
-    private Object transform(Field field, Object raw) {
-        TransformPlan transformPlan = field.getFieldControl().getTransformPlan();
-        String method = transformPlan.getMethod();
-        if (method.equals("map")) {
-            Map<String, String> mapTo = (Map<String, String>) transformPlan.getParams().get("mapTo");
-            return mapTo.get(raw);
-        } else if (method.equalsIgnoreCase("ZScore")) {
-            return zScoreNormalizer.normalize(field, raw);
-        } else {
-            throw new RuntimeException("Method not supported: " + method);
-        }
-
-    }
 }

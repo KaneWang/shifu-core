@@ -64,7 +64,7 @@ public class LocalTransformRequestProcessor implements RequestProcessor {
 
             for (List<Object> row : rows) {
 
-                List<Double> result = transformer.transform(fieldMeta, row);
+                List<Object> result = transformer.transform(fieldMeta.getFields(), row);
                 writer.println(Joiner.on(",").join(result));
 
             }

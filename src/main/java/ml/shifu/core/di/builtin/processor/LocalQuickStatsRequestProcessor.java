@@ -27,7 +27,7 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
 
     public void exec(Request req) throws Exception {
 
-        log.info("Request Received: LocalBinomialStatsRequestProcessor");
+        log.info("Request Received: LocalQuickStatsRequestProcessor");
 
 
         Params params = req.getProcessor().getParams();
@@ -109,6 +109,16 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
                     if (raw.toString().equals("NaN")) {
                         invalidFreq[i]++;
                         valid = false;
+                    }
+
+                    if (continuousSet.contains(i)) {
+
+                        try {
+                            Double.valueOf(raw.toString());
+                        } catch(Exception e) {
+                            invalidFreq[i]++;
+                            valid = false;
+                        }
                     }
 
                     uniqueList.get(i).add(raw);

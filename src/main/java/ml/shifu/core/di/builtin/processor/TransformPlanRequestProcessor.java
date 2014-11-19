@@ -24,40 +24,37 @@ public class TransformPlanRequestProcessor implements RequestProcessor {
         String pathFieldMeta = params.get("pathFieldMeta").toString();
         String pathFieldMetaOutput = params.get("pathFieldMetaOutput").toString();
 
+        Boolean transformSelectedOnly = Boolean.valueOf(params.get("transformSelectedOnly").toString());
+
         FieldMeta fieldMeta = JSONUtils.readValue(new File(pathFieldMeta), FieldMeta.class);
 
         List<Object> rawTransformPlans = (List<Object>)params.get("transforms");
 
-        TransformPlan defaultPlan = null;
+        FieldSelector fieldSelector = new FieldSelector();
 
         for (Object rawTransformPlan : rawTransformPlans) {
             TransformPlan transformPlan = JSONUtils.reparse(rawTransformPlan, TransformPlan.class);
 
-            if (transformPlan.getSelectors().contains("$default")) {
-                defaultPlan = transformPlan;
-                continue;
+            List<Field> fields = fieldSelector.select(fieldMeta, transformPlan.getSelectors());
+
+
+            for (Field field : fields) {
+                if (transformSelectedOnly) {
+                    if ((field.getFieldControl().getIsSelected() != null && field.getFieldControl().getIsSelected() == true)
+                            || (field.getFieldControl().getIsTarget() != null && field.getFieldControl().getIsTarget() == true)) {
+                        field.getFieldControl().setTransformPlan(transformPlan);
+                    }
+                } else {
+                    field.getFieldControl().setTransformPlan(transformPlan);
+                }
             }
-
-            addTransformPlans(fieldMeta, transformPlan);
-
         }
 
-        if (defaultPlan != null) {
-            addTransformPlans(fieldMeta, defaultPlan);
-        }
+
 
         JSONUtils.writeValue(new File(pathFieldMetaOutput), fieldMeta);
 
     }
 
-    private void addTransformPlans(FieldMeta fieldMeta, TransformPlan transformPlan) {
 
-        FieldSelector fieldSelector = new FieldSelector();
-        List<Field> fields = fieldSelector.select(fieldMeta, transformPlan.getSelectors());
-
-
-        for (Field field : fields) {
-            field.getFieldControl().setTransformPlan(transformPlan);
-        }
-    }
 }

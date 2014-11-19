@@ -99,58 +99,63 @@ public class RequestDispatcherTest {
     }           */
 
 
-    @Test
+   // @Test
     public void test101() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/1_create.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test1012() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/1_create.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test102() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test1022() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_quick_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test1026() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_6_data_correction.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test103() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/3_varselect.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test104() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/4_transformplan.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test105() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/5_transform.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test1065() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/6_5_transform_eval.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
+    @Test
+    public void test1081() throws Exception {
+        Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/8_1_modeleval.json"), Request.class);
+        RequestDispatcher.dispatch(req);
+    }
 }
