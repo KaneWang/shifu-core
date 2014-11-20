@@ -34,7 +34,7 @@ public class DefaultTransformer {
             Field field = fields.get(i);
 
             if (field.getFieldControl().getTransformPlan() != null && field.getFieldControl().getIsSelected() != null && field.getFieldControl().getIsSelected() == true) {
-                normalized.add(transform(field, row.get(i)));
+                normalized.add(transform(field, row.get(i).toString()));
             }
         }
         return normalized;
@@ -47,7 +47,7 @@ public class DefaultTransformer {
             Field field = fields.get(i);
 
             if (field.getFieldControl().getTransformPlan() != null && field.getFieldControl().getIsTarget() != null && field.getFieldControl().getIsTarget() == true) {
-                normalized.add(transform(field, row.get(i)));
+                normalized.add(transform(field, row.get(i).toString()));
             }
         }
         return normalized;
