@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class InitRequestProcessor implements RequestProcessor {
 
-    private static Logger log = LoggerFactory.getLogger(CreatePMMLElementRequestProcessor.class);
+    private static Logger log = LoggerFactory.getLogger(InitRequestProcessor.class);
 
     public void exec(Request req) throws Exception {
         Params params = req.getProcessor().getParams();

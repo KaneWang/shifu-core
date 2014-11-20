@@ -7,12 +7,12 @@ import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldStats;
 import ml.shifu.core.di.builtin.EqualPositiveBinningCalculator;
 import ml.shifu.core.di.builtin.KSIVCalculator;
-import ml.shifu.core.di.builtin.QuantileCalculator;
+
 import ml.shifu.core.di.builtin.WOECalculator;
 import ml.shifu.core.util.CommonUtils;
-import ml.shifu.core.util.PMMLUtils;
+
 import ml.shifu.core.util.Params;
-import org.dmg.pmml.Interval;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +78,7 @@ public class DefaultContinuousStatsCalculator {
         stats.setStdDev(stdDev);
         stats.setInterQuartileRange(interQuartileRange);
 
-        QuantileCalculator quantileCalculator = new QuantileCalculator();
+        //QuantileCalculator quantileCalculator = new QuantileCalculator();
 
 
 
