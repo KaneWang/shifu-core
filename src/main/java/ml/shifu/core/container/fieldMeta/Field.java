@@ -1,6 +1,6 @@
 package ml.shifu.core.container.fieldMeta;
 
-import ml.shifu.core.container.FieldControl;
+import ml.shifu.core.container.fieldMeta.FieldControl;
 
 import java.util.Map;
 

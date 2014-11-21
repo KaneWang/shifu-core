@@ -1,30 +1,25 @@
-package ml.shifu.core.container;
+package ml.shifu.core.container.fieldMeta;
 
 
 import ml.shifu.core.util.TransformPlan;
 
 public class FieldControl {
 
-    private Boolean isSelected;
-    private Boolean isTarget;
+    public enum UsageType {UNKNOWN, ACTIVE, TARGET, SUPPLEMENTARY, GROUP, ORDER, FREQUENCY_WEIGHT, ANALYSIS_WEIGHT}
+
+    private UsageType usageType;
+
+
     private String mapMissingTo;
     private String mapInvalidTo;
     private TransformPlan transformPlan;
 
-    public Boolean getIsSelected() {
-        return isSelected;
+    public UsageType getUsageType() {
+        return usageType;
     }
 
-    public void setIsSelected(Boolean isSelected) {
-        this.isSelected = isSelected;
-    }
-
-    public Boolean getIsTarget() {
-        return isTarget;
-    }
-
-    public void setIsTarget(Boolean isTarget) {
-        this.isTarget = isTarget;
+    public void setUsageType(UsageType usageType) {
+        this.usageType = usageType;
     }
 
     public String getMapMissingTo() {

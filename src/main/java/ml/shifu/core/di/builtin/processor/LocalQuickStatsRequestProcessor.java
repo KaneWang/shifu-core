@@ -4,7 +4,7 @@ import com.google.common.base.Splitter;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import ml.shifu.core.container.ContinuousValueObject;
-import ml.shifu.core.container.FieldControl;
+import ml.shifu.core.container.fieldMeta.FieldControl;
 import ml.shifu.core.container.fieldMeta.*;
 import ml.shifu.core.di.module.SimpleModule;
 import ml.shifu.core.di.service.DataLoadingService;
@@ -154,7 +154,9 @@ public class LocalQuickStatsRequestProcessor implements RequestProcessor {
             Counts counts = new Counts();
             counts.setTotalFreq(totalFreq[i]);
             counts.setMissingFreq(missingFreq[i]);
+            counts.setMissingRate(missingFreq[i] / totalFreq[i]);
             counts.setInvalidFreq(invalidFreq[i]);
+            counts.setInvalidRate(invalidFreq[i] / totalFreq[i]);
             counts.setCardinality(uniqueList.get(i).size());
             field.getFieldStats().setCounts(counts);
 

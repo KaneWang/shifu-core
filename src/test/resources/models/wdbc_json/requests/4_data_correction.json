@@ -8,9 +8,9 @@
             "transformSelectedOnly": true,
             "pathFieldMeta": "src/test/resources/models/wdbc_json/generated/FieldMeta.json",
             "pathData": "src/test/resources/data/wdbc/wdbc_with_missing.train",
-            "pathDataOutput": "src/test/resources/data/wdbc/wdbc_with_missing_corrected.train",
+            "pathDataOutput": "src/test/resources/models/wdbc_json/generated/corrected.txt",
             "delimiter": ",",
-            "pathOutput": "src/test/resources/models/wdbc_json/generated/corrected.txt",
+            "pathTmpFieldMeta": "/user/xinzhong/tmp/FieldMeta.json",
             "pathOutputActiveHeader": "src/test/resources/models/wdbc_json/generated/active_header.txt",
             "mapMissingTo": {
                 "$continuous": "$mean",

@@ -3,7 +3,7 @@ package ml.shifu.core.di.builtin.processor;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import ml.shifu.core.container.ContinuousValueObject;
-import ml.shifu.core.container.FieldControl;
+import ml.shifu.core.container.fieldMeta.FieldControl;
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldBasics;
 import ml.shifu.core.container.fieldMeta.FieldMeta;

@@ -10,8 +10,26 @@ public class Counts {
 
     private Double totalFreq;
     private Double missingFreq;
+    private Double missingRate;
     private Double invalidFreq;
+    private Double invalidRate;
     private Integer cardinality;
+
+    public Double getMissingRate() {
+        return missingRate;
+    }
+
+    public void setMissingRate(Double missingRate) {
+        this.missingRate = missingRate;
+    }
+
+    public Double getInvalidRate() {
+        return invalidRate;
+    }
+
+    public void setInvalidRate(Double invalidRate) {
+        this.invalidRate = invalidRate;
+    }
 
     public Integer getCardinality() {
         return cardinality;

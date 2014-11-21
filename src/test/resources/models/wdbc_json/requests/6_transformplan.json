@@ -7,7 +7,7 @@
     "params": {
       "pathFieldMeta": "src/test/resources/models/wdbc_json/generated/FieldMeta.json",
       "pathFieldMetaOutput": "src/test/resources/models/wdbc_json/generated/FieldMeta.json",
-      "transformSelectedOnly": true,
+      "transformActiveOnly": true,
       "transforms": [
         {
           "selectors": ["diagnosis"],
