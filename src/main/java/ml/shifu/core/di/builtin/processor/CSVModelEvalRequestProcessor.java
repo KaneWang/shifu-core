@@ -33,9 +33,9 @@ public class CSVModelEvalRequestProcessor implements RequestProcessor {
                 String line = scanner.nextLine();
                 List<String> parts = Arrays.asList(line.split(","));
                 ClassificationResult result = new ClassificationResult();
-                result.setTrueClass(parts.get(1));
+                result.setTrueClass(parts.get(0));
                 Map<String, Double> scoreMap = new HashMap<String, Double>();
-                scoreMap.put("testModel", Double.valueOf(parts.get(0)));
+                scoreMap.put("testModel", Double.valueOf(parts.get(1)));
                 result.setScoreMap(scoreMap);
                 classificationResultList.add(result);
             }
@@ -49,6 +49,12 @@ public class CSVModelEvalRequestProcessor implements RequestProcessor {
             }
         }
 
+        Collections.sort(classificationResultList, new Comparator<ClassificationResult>() {
+            @Override
+            public int compare(ClassificationResult a, ClassificationResult b) {
+                return b.getMeanScore().compareTo(a.getMeanScore());
+            }
+        });
 
 
         BinaryConfusionMatrixCalculator calculator = new BinaryConfusionMatrixCalculator();

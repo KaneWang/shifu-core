@@ -25,16 +25,16 @@ public class PreliminaryUsageTypeSettingRequestProcessor implements RequestProce
         FieldMeta fieldMeta = FieldMetaUtils.loadFieldMeta(params);
 
         for (Field field : fieldMeta.getFields()) {
-            if (field.getFieldControl().getUsageType().equals(FieldControl.UsageType.ACTIVE)) {
+            if (field.getFieldControl().getUsageType().equals(FieldControl.UsageType.UNSET)) {
                 int cardinality = field.getFieldStats().getCounts().getCardinality();
                 if (cardinality > cardinalityUpperLimit || cardinality < cardinalityLowerLimit) {
-                    log.info("    Change ACTIVE to SUPPLEMENTARY: " + field.getFieldBasics().getName());
+                    log.info("    Set UsageType from UNSET to SUPPLEMENTARY: " + field.getFieldBasics().getName());
                     log.info("        - Exceed Cardinality Limit: cardinality=" + cardinality);
                     field.getFieldControl().setUsageType(FieldControl.UsageType.SUPPLEMENTARY);
                 }
 
                 if (field.getFieldStats().getCounts().getMissingRate() > missingRateLimit) {
-                    log.info("    Change ACTIVE to SUPPLEMENTARY: " + field.getFieldBasics().getName());
+                    log.info("    Set UsageType from UNSET to SUPPLEMENTARY: " + field.getFieldBasics().getName());
                     log.info("        - Exceed MissingRate Limit: missingRate=" + field.getFieldStats().getCounts().getMissingRate());
                     field.getFieldControl().setUsageType(FieldControl.UsageType.SUPPLEMENTARY);
                 }

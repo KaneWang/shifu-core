@@ -2,6 +2,7 @@ package ml.shifu.core.di.builtin.processor;
 
 
 import ml.shifu.core.container.fieldMeta.Field;
+import ml.shifu.core.container.fieldMeta.FieldControl;
 import ml.shifu.core.container.fieldMeta.FieldMeta;
 import ml.shifu.core.di.spi.RequestProcessor;
 import ml.shifu.core.request.Request;
@@ -44,8 +45,9 @@ public class TransformPlanRequestProcessor implements RequestProcessor {
 
             for (Field field : fields) {
                 if (transformSelectedOnly) {
-                    if ((field.getFieldControl().getIsSelected() != null && field.getFieldControl().getIsSelected() == true)
-                            || (field.getFieldControl().getIsTarget() != null && field.getFieldControl().getIsTarget() == true)) {
+                    FieldControl.UsageType usageType = field.getFieldControl().getUsageType();
+                    if (usageType.equals(FieldControl.UsageType.ACTIVE) || usageType.equals(FieldControl.UsageType.TARGET)) {
+
                         field.getFieldControl().setTransformPlan(transformPlan);
                     }
                 } else {

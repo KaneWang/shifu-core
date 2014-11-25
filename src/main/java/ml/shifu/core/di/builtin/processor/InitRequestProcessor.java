@@ -18,9 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InitRequestProcessor implements RequestProcessor {
 
@@ -46,13 +44,14 @@ public class InitRequestProcessor implements RequestProcessor {
             fieldTypeSettingService.exec(fieldMeta, req.getParamsBySpi("FieldTypeSetter"));
         }
 
+        log.info("=== Task Starts: Set UsageType ===" );
 
         for (Field field : fieldMeta.getFields()) {
             field.setFieldStats(new FieldStats());
             field.setFieldControl(new FieldControl());
 
-            // Set all usageType to UNKNOWN
-            field.getFieldControl().setUsageType(FieldControl.UsageType.UNKNOWN);
+            // Set all usageType to UNSET
+            field.getFieldControl().setUsageType(FieldControl.UsageType.UNSET);
         }
 
         FieldSelector fieldSelector = new FieldSelector();
@@ -73,6 +72,7 @@ public class InitRequestProcessor implements RequestProcessor {
             }
         }
 
+        log.info("=== Task Finished: Set UsageType ===" );
 
 
 

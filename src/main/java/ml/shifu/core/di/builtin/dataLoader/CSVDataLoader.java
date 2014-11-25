@@ -18,7 +18,7 @@ public class CSVDataLoader implements DataLoader {
     private static Logger log = LoggerFactory.getLogger(CSVDataLoader.class);
 
 
-    public List<List<Object>> load(Params params) {
+    public List<List<Object>> load(Params params) throws Exception {
         Scanner scanner = null;
 
         String pathData = params.get("pathData").toString();

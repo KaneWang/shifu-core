@@ -5,7 +5,7 @@ import ml.shifu.core.util.TransformPlan;
 
 public class FieldControl {
 
-    public enum UsageType {UNKNOWN, ACTIVE, TARGET, SUPPLEMENTARY, GROUP, ORDER, FREQUENCY_WEIGHT, ANALYSIS_WEIGHT}
+    public enum UsageType {UNSET, ACTIVE, TARGET, SUPPLEMENTARY, GROUP, ORDER, FREQUENCY_WEIGHT, ANALYSIS_WEIGHT}
 
     private UsageType usageType;
 

@@ -2,7 +2,10 @@ package ml.shifu.core.di.builtin.transform;
 
 import ml.shifu.core.container.fieldMeta.Field;
 import ml.shifu.core.container.fieldMeta.FieldBasics;
+import ml.shifu.core.container.fieldMeta.FieldControl;
 import ml.shifu.core.util.DefaultDataChecker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,36 +13,49 @@ import java.util.List;
 
 public class DefaultDataCorrector {
 
+    private static Logger log = LoggerFactory.getLogger(DefaultDataCorrector.class);
 
     public List<Object> transform(List<Field> fields, List<Object> row) {
-        int size = fields.size();
+        int inputSize = fields.size();
 
         List<Object> transformed = new ArrayList<Object>();
-        for (int i = 0; i < size; i++) {
-            Object o = transform(fields.get(i), row.get(i));
-            if (o == null) {
+        for (int i = 0; i < inputSize; i++) {
+            Field field = fields.get(i);
+
+            if (field.getFieldControl().getMapMissingTo() != null
+                    && field.getFieldControl().getMapMissingTo().equalsIgnoreCase("$skip")) {
                 return null;
             }
+
+            Object o = transform(fields.get(i), row.get(i));
             transformed.add(o);
         }
 
+        int outputSize = transformed.size();
+        if (outputSize != inputSize) {
+            log.error("Output size mismatches input size: inputSize=" + inputSize +", outputSize=" + outputSize);
+        }
         return transformed;
     }
 
     public Object transform(Field field, Object raw) {
 
-        if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CONTINUOUS)) {
-            if (DefaultDataChecker.isMissingNumber(raw)) {
-                return getMissingReplacement(field, raw);
-            }
-        } else {
-            if (DefaultDataChecker.isMissing(raw)) {
-                return getMissingReplacement(field, raw);
+        if (field.getFieldControl().getUsageType().equals(FieldControl.UsageType.ACTIVE) ||
+                field.getFieldControl().getUsageType().equals(FieldControl.UsageType.UNSET)) {
+
+            if (field.getFieldBasics().getOpType().equals(FieldBasics.OpType.CONTINUOUS)) {
+                if (DefaultDataChecker.isMissingNumber(raw)) {
+                    return getMissingReplacement(field, raw);
+                }
+            } else {
+                if (DefaultDataChecker.isMissing(raw)) {
+                    return getMissingReplacement(field, raw);
+                }
             }
         }
         return raw;
-    }
 
+    }
 
 
     private Object getMissingReplacement(Field field, Object raw) {
@@ -54,7 +70,7 @@ public class DefaultDataCorrector {
         } else if (treatment.equalsIgnoreCase("$modal")) {
             return field.getFieldStats().getDiscreteStats().getModalValue();
         } else if (treatment.equalsIgnoreCase("$skip")) {
-            return null;
+            return "$skip";
         } else {
             throw new RuntimeException("Missing treatment not supported: " + treatment);
         }

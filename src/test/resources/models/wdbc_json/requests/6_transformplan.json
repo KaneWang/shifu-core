@@ -10,17 +10,7 @@
       "transformActiveOnly": true,
       "transforms": [
         {
-          "selectors": ["diagnosis"],
-          "method": "map",
-          "params": {
-            "mapTo": {
-              "M": "1",
-              "B": "0"
-            }
-          }
-        },
-        {
-          "selectors": ["$default"],
+          "selectors": ["$continuous"],
           "method": "ZScore",
           "params": {
             "stdDevCutOff": "6"

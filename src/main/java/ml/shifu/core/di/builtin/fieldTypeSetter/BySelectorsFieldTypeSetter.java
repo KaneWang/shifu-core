@@ -20,7 +20,7 @@ public class BySelectorsFieldTypeSetter implements FieldTypeSetter {
 
     public void set(FieldMeta fieldMeta, Params params){
 
-        log.info("Task Starts: FieldTypeSetter => NamePatternFieldTypeSetter");
+        log.info("Task Starts: FieldTypeSetter => BySelectorsFieldTypeSetter");
 
         List<String> categoricalSelectors = (List<String>)params.get("$categorical");
         List<String> continuousSelectors = (List<String>)params.get("$continuous");
@@ -29,17 +29,21 @@ public class BySelectorsFieldTypeSetter implements FieldTypeSetter {
         FieldSelector fieldSelector = new FieldSelector();
 
         for (Field field : fieldSelector.select(fieldMeta, categoricalSelectors)) {
+            log.info("    Set OpType to CATEGORICAL: " + field.getFieldBasics().getName());
             field.getFieldBasics().setOpType(FieldBasics.OpType.CATEGORICAL);
         }
 
         for (Field field : fieldSelector.select(fieldMeta, continuousSelectors)) {
+            log.info("    Set OpType to CONTINUOUS: " + field.getFieldBasics().getName());
             field.getFieldBasics().setOpType(FieldBasics.OpType.CONTINUOUS);
         }
 
         for (Field field : fieldSelector        .select(fieldMeta,  ordinalSelectors)) {
+            log.info("    Set OpType to ORDINAL: " + field.getFieldBasics().getName());
             field.getFieldBasics().setOpType(FieldBasics.OpType.ORDINAL);
         }
 
+        log.info("Task Finished: FieldTypeSetter => BySelectorsFieldTypeSetter");
 
 
     }

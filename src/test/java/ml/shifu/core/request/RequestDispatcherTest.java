@@ -99,7 +99,7 @@ public class RequestDispatcherTest {
     }           */
 
 
-    @Test
+    //@Test
     public void test101() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/1_create.json"), Request.class);
         RequestDispatcher.dispatch(req);
@@ -107,7 +107,7 @@ public class RequestDispatcherTest {
 
 
 
-    @Test
+    //@Test
     public void test102() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/2_quick_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);
@@ -115,19 +115,19 @@ public class RequestDispatcherTest {
 
 
 
-    @Test
+   // @Test
     public void test103() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/3_preliminary.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test104() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/4_data_correction.json"), Request.class);
         RequestDispatcher.dispatch(req);
     }
 
-    @Test
+    //@Test
     public void test105() throws Exception {
         Request req = JSONUtils.readValue(new File("src/test/resources/models/wdbc_json/requests/5_full_stats.json"), Request.class);
         RequestDispatcher.dispatch(req);

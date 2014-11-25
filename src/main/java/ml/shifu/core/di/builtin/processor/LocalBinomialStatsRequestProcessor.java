@@ -66,7 +66,7 @@ public class LocalBinomialStatsRequestProcessor implements RequestProcessor {
 
 
         FieldControl fieldControl = fieldMeta.getFields().get(targetFieldNum).getFieldControl();
-        fieldControl.setIsTarget(true);
+
 
         List<String> posTags = (List<String>)params.get("posTags");
         List<String> negTags = (List<String>)params.get("negTags");

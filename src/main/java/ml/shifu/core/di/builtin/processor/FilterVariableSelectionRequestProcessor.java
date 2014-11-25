@@ -31,9 +31,14 @@ public class FilterVariableSelectionRequestProcessor implements RequestProcessor
         final String metric = params.get("metric").toString();
 
 
+        log.info("Resetting ACTIVE fields to UNSET...");
         for (Field field : fields) {
             if (field.getFieldStats() != null && field.getFieldStats().getExtensions() != null && field.getFieldStats().getExtensions().containsKey(metric)) {
                 candidateFields.add(field);
+            }
+
+            if (field.getFieldControl().getUsageType().equals(FieldControl.UsageType.ACTIVE)) {
+                field.getFieldControl().setUsageType(FieldControl.UsageType.UNSET);
             }
         }
 
@@ -53,8 +58,10 @@ public class FilterVariableSelectionRequestProcessor implements RequestProcessor
 
             FieldControl fieldControl = candidateFields.get(i).getFieldControl();
 
-            if (fieldControl.getUsageType().equals(FieldControl.UsageType.UNKNOWN)) {
-                log.info("    Selected: " + candidateFields.get(i).getFieldBasics().getName());
+            FieldControl.UsageType currentUsageType = fieldControl.getUsageType();
+            if (fieldControl.getUsageType().equals(FieldControl.UsageType.UNSET) ||
+                    fieldControl.getUsageType().equals(FieldControl.UsageType.ACTIVE)) {
+                log.info("    Set UsageType from " + currentUsageType.toString() + " to ACTIVE: " + candidateFields.get(i).getFieldBasics().getName());
                 log.info("        Metric: " + metric + "=" + candidateFields.get(i).getFieldStats().getExtensions().get(metric));
 
                 fieldControl.setUsageType(FieldControl.UsageType.ACTIVE);

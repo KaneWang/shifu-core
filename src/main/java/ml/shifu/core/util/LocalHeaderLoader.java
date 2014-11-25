@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HeaderFileLoader {
+public class LocalHeaderLoader {
 
-    private static Logger log = LoggerFactory.getLogger(HeaderFileLoader.class);
-    private String delimiter = ",";
+    private static Logger log = LoggerFactory.getLogger(LocalHeaderLoader.class);
 
-    public List<String> load(String filePath) {
+
+    public static List<String> load(String filePath, String delimiter) {
         Scanner scanner = null;
         List<String> header = new ArrayList<String>();
         try {
@@ -30,15 +30,11 @@ public class HeaderFileLoader {
             }
 
 
-        } catch (Exception e)
-
-        {
+        } catch (Exception e) {
             log.error(e.toString());
 
             throw new RuntimeException("Cannot load file");
-        } finally
-
-        {
+        } finally {
             if (scanner != null) {
                 scanner.close();
             }
@@ -46,8 +42,5 @@ public class HeaderFileLoader {
         return header;
     }
 
-    public void setDelimiter(String delimiter) {
-        this.delimiter = delimiter;
-    }
 
 }

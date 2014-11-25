@@ -10,7 +10,7 @@ public class DataLoadingService {
     @Inject
     private DataLoader loader;
 
-    public List<List<Object>> load(Params params) {
+    public List<List<Object>> load(Params params) throws Exception {
         return loader.load(params);
     }
 }

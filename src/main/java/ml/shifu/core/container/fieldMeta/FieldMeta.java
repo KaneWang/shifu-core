@@ -8,6 +8,7 @@ public class FieldMeta {
     private String version;
     private List<Field> fields;
 
+
     public String getVersion() {
         return version;
     }

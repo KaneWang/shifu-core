@@ -33,7 +33,7 @@ public class FieldSelector {
     public List<Field> select(FieldMeta fieldMeta, String selector) {
         List<Field> selected = null;
 
-        if (selector.startsWith("file://")) {
+        if (selector.startsWith("file://")) { // || selector.startsWith("./") || selector.startsWith("../")) {
             selected = selectByFile(fieldMeta, selector);
         } else if (selector.startsWith("$")) {
             selected = selectByBuiltin(fieldMeta, selector);
@@ -51,7 +51,11 @@ public class FieldSelector {
 
         Scanner scanner = null;
 
-        String filename = selector.substring(7);
+        String filename = selector.substring(7);;
+
+       // if (selector.startsWith("file://")) {
+
+        //}
 
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(new File(filename))));
